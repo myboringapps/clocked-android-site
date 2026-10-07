@@ -1,0 +1,110 @@
+:root {
+  --bg: #0A0B0D; --card: #16181D; --text: #F2F4F7; --muted: #8E96A3; --accent: #C6F23D;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+}
+main { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
+header { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+header a { color: var(--text); text-decoration: none; font-weight: 700; font-size: 22px; }
+.mark { width: 34px; height: 34px; }
+nav { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 36px; }
+nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
+nav a:hover, nav a[aria-current] { color: var(--accent); }
+h1 { font-size: 34px; line-height: 1.2; margin: 0 0 8px; }
+h2 { font-size: 21px; margin: 36px 0 8px; }
+p, li { color: #D5DAE1; }
+.muted, .meta { color: var(--muted); font-size: 15px; }
+a { color: var(--accent); }
+.card { background: var(--card); border-radius: 16px; padding: 18px 20px; margin: 20px 0; }
+ul { padding-left: 22px; }
+.hero { text-align: center; padding: 40px 0 8px; }
+.hero .mark { width: 96px; height: 96px; }
+.hero h1 { font-size: 44px; margin-top: 16px; }
+.features { display: grid; gap: 10px; margin: 24px 0; padding: 0; list-style: none; }
+.features li { background: var(--card); border-radius: 14px; padding: 12px 16px; color: var(--text); }
+.links { display: grid; gap: 12px; margin-top: 36px; }
+.links a { display: block; background: var(--card); border-radius: 16px; padding: 16px 20px; color: var(--text); text-decoration: none; font-weight: 600; }
+.links a span { display: block; color: var(--muted); font-weight: 400; font-size: 15px; }
+footer { margin-top: 56px; color: var(--muted); font-size: 14px; border-top: 1px solid #1E232A; padding-top: 20px; }
+.faq { margin: 8px 0 0; }
+.faq h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 28px 0 8px; }
+.faq details { background: var(--card); border-radius: 14px; margin: 8px 0; }
+.faq summary { list-style: none; cursor: pointer; position: relative; min-height: 48px; padding: 13px 48px 13px 18px; font-weight: 600; color: var(--text); border-radius: 14px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; position: absolute; right: 20px; top: 50%; width: 9px; height: 9px; margin-top: -7px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(45deg); transition: transform 0.2s ease; }
+.faq details[open] summary::after { margin-top: -2px; transform: rotate(-135deg); }
+.faq summary:hover { color: var(--accent); }
+.faq summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.faq details > p, .faq details > ul { margin: 0; padding: 0 18px 16px; }
+.faq details > ul { padding-left: 40px; }
+.faq details > p + p { padding-top: 0; margin-top: -6px; }
+.more { margin: 16px 0 0; }
+/* Pets: one hops across the stage, turns round at the edges and spins into the next every 3 seconds (Tick, Clocky,
+   Bean, Bit); the lineup bobs and blinks. CSS only, still with Reduce Motion. */
+.pet-stage { position: relative; height: 220px; background: var(--card); border-radius: 16px; margin: 16px 0 12px; overflow: hidden; }
+.pet-stage::after { content: ""; position: absolute; left: 16px; right: 16px; bottom: 30px; height: 2px; border-radius: 1px; background: #22262E; }
+.pet-runner { position: absolute; bottom: 24px; left: 12px; width: 124px; height: 124px; animation: pet-run 12s ease-in-out infinite; }
+.pet-hop { position: relative; width: 100%; height: 100%; transform-origin: 50% 100%; animation: pet-hop .75s cubic-bezier(.3, 0, .7, 1) infinite; }
+.pet-layer { position: absolute; inset: 0; opacity: 0; transform-origin: 50% 70%;
+  animation: pet-turn 12s steps(1, end) infinite, pet-arrive 3s ease-out infinite; }
+.pet-layer.pet-tick { opacity: 1; animation-delay: 0s, 0s; }
+.pet-layer.pet-clocky { animation-delay: -9s, 0s; }
+.pet-layer.pet-bean { animation-delay: -6s, 0s; }
+.pet-layer.pet-bit { animation-delay: -3s, 0s; }
+.pet-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.pet-stage .arm-l, .pet-stage .arm-r { transform-box: view-box; }
+.pet-stage .arm-l { animation: pet-wave-l .75s ease-in-out infinite; }
+.pet-stage .arm-r { animation: pet-wave-r .75s ease-in-out infinite; }
+.pet-stage .pet-bit .arm-l, .pet-stage .pet-bit .arm-r { animation-name: pet-pixel-arm; animation-timing-function: steps(2, jump-none); }
+.pet-stage .lift { animation: pet-lift .75s ease-in-out infinite; }
+.pet-poof { position: absolute; left: 50%; top: 52%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%;
+  border: 3px solid var(--accent); opacity: 0; animation: pet-poof 3s ease-out infinite; }
+.pet-lineup { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 4px; }
+.pet-pick { margin: 0; background: var(--card); border-radius: 14px; padding: 12px 4px 10px; text-align: center; }
+.pet-pick .pet-svg { width: 64px; height: 64px; margin: 0 auto; animation: pet-bob 2.6s ease-in-out infinite; }
+.pet-pick:nth-child(2) .pet-svg { animation-delay: -.65s; }
+.pet-pick:nth-child(3) .pet-svg { animation-delay: -1.3s; }
+.pet-pick:nth-child(4) .pet-svg { animation-delay: -1.95s; animation-timing-function: steps(2, jump-none); }
+.pet-pick .eyes { transform-box: fill-box; transform-origin: center; animation: pet-blink 4.2s infinite; }
+.pet-pick:nth-child(odd) .eyes { animation-delay: -2.1s; }
+.pet-pick figcaption { margin-top: 4px; font-size: 14px; font-weight: 600; color: var(--text); }
+@keyframes pet-run {
+  0% { left: 12px; transform: scaleX(1); }
+  45% { left: calc(100% - 136px); transform: scaleX(1); }
+  50% { left: calc(100% - 136px); transform: scaleX(-1); }
+  95% { left: 12px; transform: scaleX(-1); }
+  100% { left: 12px; transform: scaleX(1); }
+}
+@keyframes pet-hop {
+  0%, 100% { transform: translateY(0) scale(1.1, .88); }
+  14% { transform: translateY(-8px) scale(.92, 1.1); }
+  50% { transform: translateY(-48px) scale(1, 1); }
+  86% { transform: translateY(-6px) scale(.95, 1.06); }
+}
+@keyframes pet-turn { 0% { opacity: 1; } 25%, 100% { opacity: 0; } }
+@keyframes pet-arrive {
+  0% { transform: scale(.2) rotate(-200deg); }
+  10% { transform: scale(1.15) rotate(14deg); }
+  16% { transform: scale(1) rotate(0); }
+  70% { transform: rotate(0); }
+  78% { transform: rotate(-12deg); }
+  86% { transform: rotate(12deg); }
+  94%, 100% { transform: rotate(0); }
+}
+@keyframes pet-wave-l { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(140deg); } }
+@keyframes pet-wave-r { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-140deg); } }
+@keyframes pet-pixel-arm { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes pet-lift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-58px); } }
+@keyframes pet-poof { 0% { opacity: .9; transform: scale(.2); } 14% { opacity: 0; transform: scale(1.6); } 100% { opacity: 0; transform: scale(1.6); } }
+@keyframes pet-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes pet-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@media (prefers-reduced-motion: reduce) {
+  .faq summary::after { transition: none; }
+  .pet-stage *, .pet-lineup * { animation: none !important; }
+  .pet-runner { left: calc(50% - 62px); }
+}
+@media (max-width: 480px) { h1 { font-size: 30px; } .hero h1 { font-size: 38px; } .faq summary { padding-left: 16px; } }
